@@ -7,8 +7,13 @@ btnJob.addEventListener('click', applyToJob);
 
 function applyToJob(){
     console.log('La décision est en cours...');
-    const result = startDecisionProcess();
-    console.log('Result', result);
+    startDecisionProcess()
+    .then(result => {
+        console.log('Result :', result);
+    })
+    .catch(err => {
+        console.log(err);
+    })
 }
 
 function startDecisionProcess(){
