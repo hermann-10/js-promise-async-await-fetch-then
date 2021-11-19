@@ -1,19 +1,39 @@
 const btnJob = document.getElementById('btn-job');
+const githubForm = document.getElementById('github-form');
+console.log('githubForm :', githubForm);
+const githubResult = document.getElementById('github-result');
+
+
+
 const candidat = { isProgrammer:true, 
                    isCool:true,
                 };
 
 btnJob.addEventListener('click', applyToJob);
+githubForm.addEventListener('submit', searchGithub());
 
-function applyToJob(){
+// function applyToJob(){
+//     console.log('La décision est en cours...');
+//     startDecisionProcess()
+//     .then(result => {
+//         console.log('Result :', result);
+//     })
+//     .catch(err => {
+//         console.log(err);
+//     })
+//     console.log('Juste après startDecisionProcess()');
+// }
+
+
+async function applyToJob(){
     console.log('La décision est en cours...');
-    startDecisionProcess()
-    .then(result => {
-        console.log('Result :', result);
-    })
-    .catch(err => {
-        console.log(err);
-    })
+    try {
+        const result = await startDecisionProcess();
+        console.log(result); 
+    } catch (error) {
+        console.log(error);
+    }
+    console.log('Juste après startDecisionProcess()');
 }
 
 function startDecisionProcess(){
@@ -35,3 +55,25 @@ function startDecisionProcess(){
 }
 
 console.log('Après la fonction applyToJob');
+
+// function searchGithub(e) {
+//     e.preventDefault(); //To avoid to refresh all page
+//     const account = githubForm.elements[0].value;
+//     console.log('account : ', account);
+//     fetch(`https://api.github.com/users/${account}`)
+//     .then(data => data.json())
+//     .then(jsonData => {
+//         console.log('jsonData:', jsonData)
+//         githubResult.innerHTML = `<pre><code>${JSON.stringify(jsonData, null, 4)}</code></pre>`
+//     });
+// }
+
+async function searchGithub(e) {
+    //e.preventDefault(); //To avoid to refresh all page
+    const account = githubForm.elements[0].value;
+    console.log('account : ', account);
+    const data = await fetch(`https://api.github.com/users/${account}`)
+    const jsonData = await data.json(); 
+    githubResult.innerHTML = `<pre><code>${JSON.stringify(jsonData, null, 4)}</code></pre>`
+
+}
