@@ -10,7 +10,7 @@ const candidat = { isProgrammer:true,
                 };
 
 btnJob.addEventListener('click', applyToJob);
-githubForm.addEventListener('submit', searchGithub());
+githubForm.addEventListener('submit', searchGithub);
 
 // function applyToJob(){
 //     console.log('La décision est en cours...');
@@ -69,7 +69,7 @@ console.log('Après la fonction applyToJob');
 // }
 
 async function searchGithub(e) {
-    //e.preventDefault(); //To avoid to refresh all page
+    e.preventDefault(); //To avoid to refresh all page
     const account = githubForm.elements[0].value;
     console.log('account : ', account);
     const data = await fetch(`https://api.github.com/users/${account}`)
